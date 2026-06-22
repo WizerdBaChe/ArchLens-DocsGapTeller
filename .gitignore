@@ -1,0 +1,19 @@
+# ── Build outputs ────────────────────────────────────────────
+dist/
+web/dist/
+
+# ── Dependencies ─────────────────────────────────────────────
+node_modules/
+
+# ── Runtime / temp ───────────────────────────────────────────
+/tmp/
+*.log
+
+# ── Archive (development-phase artefacts, not part of source) ─
+_archive/
+
+# ── OS / editor noise ────────────────────────────────────────
+.DS_Store
+Thumbs.db
+.env
+.env.*

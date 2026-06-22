@@ -1,0 +1,33 @@
+{
+  "name": "archlens-docsgap",
+  "version": "0.1.0",
+  "description": "Documentation drift checker: finds dead paths, stale commands, and uncovered folders by cross-referencing docs against the real repo structure.",
+  "license": "MIT",
+  "type": "commonjs",
+  "bin": {
+    "archlens-docsgap": "dist/cli/index.js"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "scan": "node dist/cli/index.js scan",
+    "test": "node --test $(find dist -name '*.test.js')",
+    "test:fixture": "node dist/cli/index.js scan tests/fixtures/sample-repo --out /tmp/docsgap-fixture --format json,md,csv",
+    "typecheck:web": "tsc -p web/tsconfig.json",
+    "dev:web": "vite --config web/vite.config.ts",
+    "build:web": "npm run typecheck:web && vite build --config web/vite.config.ts",
+    "preview:web": "vite preview --config web/vite.config.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "typescript": "^5.5.4",
+    "vite": "^8.0.16"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "fflate": "^0.8.3"
+  }
+}

@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ArchLens DocsGap</title>
+<meta name="description" content="Find where your docs and code have drifted apart — entirely in your browser, nothing uploaded." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="app" id="app">
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="mark">ArchLens <span class="dim">· DocsGap</span></span>
+    </div>
+    <div class="meta" id="headerMeta" hidden></div>
+    <div class="topbar-actions">
+      <div class="lang-switcher" id="langSwitcher" role="group" aria-label="Language"></div>
+      <div class="dl-menu" id="dlMenu" hidden>
+        <button class="ghost-btn" id="dlBtn" aria-haspopup="true" aria-expanded="false" data-i18n="topbar.downloadReport">Download report ▾</button>
+        <div class="dl-options" id="dlOptions" hidden>
+          <button data-format="json" data-i18n="topbar.downloadJson">JSON</button>
+          <button data-format="md" data-i18n="topbar.downloadMarkdown">Markdown</button>
+          <button data-format="csv" data-i18n="topbar.downloadCsv">CSV</button>
+        </div>
+      </div>
+      <button class="ghost-btn" id="resetBtn" hidden data-i18n="topbar.analyzeAnother">Analyze another project</button>
+    </div>
+  </header>
+
+  <!-- ============== ONBOARDING ============== -->
+  <main class="onboarding" id="onboarding">
+    <div class="intro">
+      <h1 data-i18n="onboarding.heroTitle">Find where your docs lied.</h1>
+      <p class="sub" data-i18n="onboarding.heroSub">Dead paths, stale commands, undocumented folders — spotted by comparing your docs against the real repo.</p>
+    </div>
+
+    <div class="reassurance" role="note">
+      <div class="reassurance-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        <span data-i18n="onboarding.reassuranceProject">Your project's code &amp; README</span>
+      </div>
+      <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      <div class="reassurance-item highlight">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 4v5c0 5-3.5 7.5-7 9-3.5-1.5-7-4-7-9V7z"/></svg>
+        <span data-i18n="onboarding.reassurancePrivacy">Stays on this device — nothing is uploaded</span>
+      </div>
+      <svg class="arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      <div class="reassurance-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <span data-i18n="onboarding.reassuranceOutput">A list of mismatches to fix</span>
+      </div>
+    </div>
+
+    <div class="picker-card" id="pickerCard">
+      <div class="picker-empty" id="pickerEmpty">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M12 4l-4 4M12 4l4 4"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>
+        <p data-i18n="onboarding.dropZip">Drop a <strong>.zip</strong> of your project here</p>
+        <div class="picker-buttons">
+          <button class="primary-btn" id="zipBtn" data-i18n="onboarding.chooseZip">Choose .zip file</button>
+          <button class="secondary-btn" id="folderBtn" data-i18n="onboarding.chooseFolder">Choose a folder</button>
+        </div>
+        <input type="file" id="zipInput" accept=".zip,application/zip" hidden />
+        <input type="file" id="folderInput" webkitdirectory directory hidden />
+      </div>
+
+      <div class="picker-selected" id="pickerSelected" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--success)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12.5l2.5 2.5 5-5"/></svg>
+        <div class="selected-text">
+          <strong id="selectedName"></strong>
+          <span id="selectedMeta"></span>
+        </div>
+        <button class="text-btn" id="changeSourceBtn" data-i18n="onboarding.changeSource">Choose a different source</button>
+        <button class="primary-btn analyze-btn" id="analyzeBtn" data-i18n="onboarding.analyzeProject">Analyze project</button>
+      </div>
+
+      <div class="picker-loading" id="pickerLoading" hidden>
+        <div class="spinner" aria-hidden="true"></div>
+        <span id="loadingLabel">Analyzing…</span>
+      </div>
+
+      <p class="picker-error" id="pickerError" hidden></p>
+    </div>
+
+    <button class="text-btn existing-report-btn" id="loadExistingBtn" data-i18n="onboarding.loadExisting">Already have a docsgap-report.json from CI? Load it instead →</button>
+    <input type="file" id="jsonInput" accept="application/json,.json" hidden />
+  </main>
+
+  <!-- ============== DASHBOARD ============== -->
+  <div id="reportView" hidden class="report-view">
+    <div class="summary" id="summary"></div>
+    <div class="workspace">
+      <section class="pane pane-issues">
+        <div class="filters" id="filters"></div>
+        <div class="issue-scroll" id="issueList"></div>
+      </section>
+      <section class="pane pane-detail" id="detailPane"></section>
+    </div>
+  </div>
+
+</div>
+<script type="module" src="/src/main.ts"></script>
+</body>
+</html>

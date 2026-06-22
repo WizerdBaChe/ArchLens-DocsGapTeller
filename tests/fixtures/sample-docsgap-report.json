@@ -1,0 +1,147 @@
+{
+  "generatedAt": "2026-06-22T06:15:25.854Z",
+  "repoIndex": {
+    "fileCount": 6,
+    "scriptCount": 3,
+    "hasPackageJson": true
+  },
+  "docRefs": [
+    {
+      "docPath": "README.md",
+      "type": "heading",
+      "value": "Sample App",
+      "line": 1,
+      "context": "# Sample App"
+    },
+    {
+      "docPath": "README.md",
+      "type": "heading",
+      "value": "Setup",
+      "line": 5,
+      "context": "## Setup"
+    },
+    {
+      "docPath": "README.md",
+      "type": "command",
+      "value": "npm install",
+      "line": 7,
+      "context": "Run `npm install` then `npm run dev` to start the dev server."
+    },
+    {
+      "docPath": "README.md",
+      "type": "command",
+      "value": "npm run dev",
+      "line": 7,
+      "context": "Run `npm install` then `npm run dev` to start the dev server."
+    },
+    {
+      "docPath": "README.md",
+      "type": "path",
+      "value": "src/app.ts",
+      "line": 9,
+      "context": "See `src/app.ts` for the entry point."
+    },
+    {
+      "docPath": "README.md",
+      "type": "command",
+      "value": "npm run build",
+      "line": 11,
+      "context": "Build with `npm run build`."
+    },
+    {
+      "docPath": "README.md",
+      "type": "heading",
+      "value": "Legacy notes",
+      "line": 13,
+      "context": "## Legacy notes"
+    },
+    {
+      "docPath": "README.md",
+      "type": "path",
+      "value": "src/old/legacy.ts",
+      "line": 15,
+      "context": "Also check `src/old/legacy.ts` for legacy code."
+    },
+    {
+      "docPath": "README.md",
+      "type": "command",
+      "value": "npm run test:unit",
+      "line": 17,
+      "context": "To run unit tests use `npm run test:unit`."
+    },
+    {
+      "docPath": "README.md",
+      "type": "path",
+      "value": "helper.ts",
+      "line": 19,
+      "context": "For utilities see `helper.ts`."
+    },
+    {
+      "docPath": "README.md",
+      "type": "command",
+      "value": "python3 scripts/missing.py",
+      "line": 21,
+      "context": "Bootstrap script: `python3 scripts/missing.py`."
+    },
+    {
+      "docPath": "README.md",
+      "type": "link",
+      "value": "docs/config.md",
+      "line": 23,
+      "context": "See the [configuration guide](docs/config.md) for environment variables."
+    },
+    {
+      "docPath": "docs/config.md",
+      "type": "heading",
+      "value": "Configuration",
+      "line": 1,
+      "context": "# Configuration"
+    }
+  ],
+  "summary": {
+    "deadPaths": 1,
+    "staleCommands": 2,
+    "uncoveredFolders": 1,
+    "warnings": 1
+  },
+  "issues": [
+    {
+      "type": "dead-path",
+      "docPath": "README.md",
+      "line": 15,
+      "reference": "src/old/legacy.ts",
+      "reason": "path not found in repo",
+      "sourceContext": "Also check `src/old/legacy.ts` for legacy code."
+    },
+    {
+      "type": "stale-command",
+      "docPath": "README.md",
+      "line": 17,
+      "reference": "npm run test:unit",
+      "reason": "script \"test:unit\" not found in package.json scripts",
+      "sourceContext": "To run unit tests use `npm run test:unit`."
+    },
+    {
+      "type": "ambiguous-reference",
+      "docPath": "README.md",
+      "line": 19,
+      "reference": "helper.ts",
+      "reason": "referenced as \"helper.ts\" but only found at \"src/utils/helper.ts\" — consider using the full path",
+      "sourceContext": "For utilities see `helper.ts`."
+    },
+    {
+      "type": "stale-command",
+      "docPath": "README.md",
+      "line": 21,
+      "reference": "python3 scripts/missing.py",
+      "reason": "target file \"scripts/missing.py\" not found in repo",
+      "sourceContext": "Bootstrap script: `python3 scripts/missing.py`."
+    },
+    {
+      "type": "uncovered-folder",
+      "reference": "src/adapters/",
+      "reason": "folder exists but is not mentioned anywhere in the scanned docs"
+    }
+  ],
+  "warnings": []
+}
