@@ -106,28 +106,31 @@ class SuiteNav extends HTMLElement {
 
     this.shadowRoot.innerHTML = `
       <style>
-        :host { all: initial; display: block; }
+        /* position+z-index：把導覽列疊在宿主頁的固定裝飾層（如漸層 vignette）之上，
+           避免被遮罩。顏色用 @archlens/tokens 的 --al-*（會穿透 Shadow DOM），
+           無 token 的宿主則退回深色 fallback。預設 Light 時就是淺底＋近黑字。 */
+        :host { all: initial; display: block; position: relative; z-index: 100; }
         .bar {
           box-sizing: border-box; width: 100%;
           display: flex; align-items: center; gap: 16px;
           padding: 8px 16px; min-height: 40px;
-          background: #0d0d0f; border-bottom: 1px solid #2a2a30;
-          font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
-          font-size: 12px; color: #8a8a96;
+          background: var(--al-surface, #0d0d0f); border-bottom: 1px solid var(--al-border, #2a2a30);
+          font-family: var(--al-font-mono, 'JetBrains Mono', ui-monospace, SFMono-Regular, Consolas, monospace);
+          font-size: 12px; color: var(--al-text, #e6e6ea);
         }
-        .brand { display: flex; align-items: center; gap: 8px; color: #39ff6a; letter-spacing: .15em; text-transform: uppercase; font-weight: 700; white-space: nowrap; }
-        .brand .dot { width: 7px; height: 7px; border-radius: 50%; background: #39ff6a; box-shadow: 0 0 6px #39ff6a; }
+        .brand { display: flex; align-items: center; gap: 8px; color: var(--al-text, #e6e6ea); letter-spacing: .15em; text-transform: uppercase; font-weight: 700; white-space: nowrap; }
+        .brand .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--al-accent, #39ff6a); }
         .tabs { display: flex; align-items: center; gap: 4px; flex: 1; flex-wrap: wrap; }
-        .tab { text-decoration: none; color: #8a8a96; padding: 4px 10px; border-radius: 6px; border: 1px solid transparent; transition: all .12s; white-space: nowrap; }
-        .tab:hover { color: #e6e6ea; border-color: #2a2a30; }
-        .tab.active { color: #0d0d0f; background: #39ff6a; font-weight: 700; }
-        .next { display: flex; align-items: center; gap: 8px; text-decoration: none; color: #e6e6ea; padding: 4px 12px; border-radius: 6px; border: 1px solid #2a2a30; white-space: nowrap; transition: all .12s; }
-        .next:hover { border-color: #39ff6a; color: #39ff6a; }
-        .next .hint { color: #8a8a96; }
-        .next:hover .hint { color: #39ff6a; }
-        .next .arrow { color: #39ff6a; }
-        .next.done { color: #8a8a96; border-style: dashed; }
-        .tab:focus-visible, .next:focus-visible { outline: 2px solid #39ff6a; outline-offset: 2px; border-radius: 6px; }
+        .tab { text-decoration: none; color: var(--al-text, #e6e6ea); padding: 4px 10px; border-radius: 6px; border: 1px solid transparent; transition: all .12s; white-space: nowrap; }
+        .tab:hover { border-color: var(--al-border, #2a2a30); }
+        .tab.active { color: var(--al-accent-contrast, #0d0d0f); background: var(--al-accent, #39ff6a); font-weight: 700; }
+        .next { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--al-text, #e6e6ea); padding: 4px 12px; border-radius: 6px; border: 1px solid var(--al-border, #2a2a30); white-space: nowrap; transition: all .12s; }
+        .next:hover { border-color: var(--al-accent, #39ff6a); color: var(--al-accent, #39ff6a); }
+        .next .hint { color: var(--al-text-secondary, #8a8a96); }
+        .next:hover .hint { color: var(--al-accent, #39ff6a); }
+        .next .arrow { color: var(--al-accent, #39ff6a); }
+        .next.done { color: var(--al-text-secondary, #8a8a96); border-style: dashed; }
+        .tab:focus-visible, .next:focus-visible { outline: 2px solid var(--al-accent, #39ff6a); outline-offset: 2px; border-radius: 6px; }
         @media (max-width: 560px) { .next .hint { display: none; } }
       </style>
       <nav class="bar" aria-label="ArchLens suite navigation">
