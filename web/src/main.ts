@@ -9,6 +9,7 @@ import {
 } from "../../src/browser";
 import { LoaderError, loadFromFileList, loadFromZipFile } from "./browserLoader";
 import { renderDetail, renderFilters, renderIssueList, renderSummary, type DashboardState } from "./ui";
+import { initThemeSwitch } from "./themeSwitch";
 import {
   SUPPORTED_LOCALES,
   applyStaticTranslations,
@@ -223,6 +224,7 @@ function setupLangSwitch(): void {
 
 applyStaticTranslations();
 setupLangSwitch();
+initThemeSwitch(document.getElementById("themeSwitch"));
 
 $("zipBtn").addEventListener("click", () => ($("zipInput") as HTMLInputElement).click());
 $("zipInput").addEventListener("change", (e) => {

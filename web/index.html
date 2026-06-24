@@ -1,10 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="al-theme-light">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>ArchLens DocsGap</title>
 <meta name="description" content="Find where your docs and code have drifted apart — entirely in your browser, nothing uploaded." />
+<!-- @archlens/tokens 預設主題＝Light（靜態掛 class，不存檔，隱私優先）；pre-paint 底色對齊 -->
+<style>html { background: #f5f4f0; }</style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
@@ -20,6 +22,7 @@
     </div>
     <div class="meta" id="headerMeta" hidden></div>
     <div class="topbar-actions">
+      <div class="theme-switch" id="themeSwitch" role="group" aria-label="Theme"></div>
       <div class="lang-switcher" id="langSwitcher" role="group" aria-label="Language"></div>
       <div class="dl-menu" id="dlMenu" hidden>
         <button class="ghost-btn" id="dlBtn" aria-haspopup="true" aria-expanded="false" data-i18n="topbar.downloadReport">Download report ▾</button>
