@@ -1,0 +1,150 @@
+/*
+ * @archlens/tokens — ArchLens 系列共用設計 token（Layer A / 設計系統）。
+ *
+ * 來源（單一事實來源）：D:\AIWork\ArchLens_Series\packages\tokens\tokens.css
+ *
+ * 設計原則：**共用「結構」，不強制「顏色」**。
+ *   - 結構（間距 / 圓角 / 字級 / 字重 / 行高 / 字體 / 動態）→ 全系列同一套值，
+ *     讓四個產品的版面節奏一致（系統感，對應前端清單 10.4）。
+ *   - 顏色 → 只定義「語意角色」變數名（surface / text / border / accent / 狀態），
+ *     由各產品挑一個「主題包」class 提供實際色票，保留各自招牌風格。
+ *
+ * 命名空間一律 `--al-*`，避免和各產品既有變數（--space-*, --paper, --color-bg…）衝突。
+ * 採用方式（漸進、非破壞）見同目錄 README。
+ */
+
+:root {
+  /* ---- 結構：間距（4px base）---- */
+  --al-space-1: 4px;
+  --al-space-2: 8px;
+  --al-space-3: 12px;
+  --al-space-4: 16px;
+  --al-space-5: 24px;
+  --al-space-6: 32px;
+  --al-space-7: 48px;
+
+  /* ---- 結構：圓角 ---- */
+  --al-radius-sm: 4px;
+  --al-radius-md: 8px;
+  --al-radius-lg: 12px;
+  --al-radius-xl: 16px;
+
+  /* ---- 結構：字級 ---- */
+  --al-text-xs: 11px;
+  --al-text-sm: 13px;
+  --al-text-base: 16px;
+  --al-text-lg: 20px;
+  --al-text-xl: 28px;
+  --al-text-2xl: 36px;
+
+  /* ---- 結構：字重 / 行高 ---- */
+  --al-weight-regular: 400;
+  --al-weight-medium: 500;
+  --al-weight-bold: 700;
+  --al-leading-tight: 1.2;
+  --al-leading-normal: 1.5;
+  --al-leading-relaxed: 1.7;
+
+  /* ---- 結構：字體（四產品共同收斂）---- */
+  --al-font-display: "Space Grotesk", "Inter", system-ui, -apple-system, sans-serif;
+  --al-font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --al-font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+
+  /* ---- 結構：動態 ---- */
+  --al-transition-fast: 0.12s;
+  --al-transition-base: 0.2s;
+
+  /* ---- 顏色語意角色（預設＝中性深色主題；主題包可覆寫）----
+     角色定義：
+       --al-bg              頁面底
+       --al-surface         面板 / 卡片
+       --al-surface-raised  比 surface 再高一階
+       --al-surface-sunken  凹陷區（輸入井 / 捲軸槽）
+       --al-border          髮絲分隔線
+       --al-text            主要文字
+       --al-text-secondary  次要文字
+       --al-text-tertiary   第三層 / placeholder
+       --al-accent          主要操作 / 品牌強調
+       --al-accent-contrast accent 上的文字
+       --al-success / --al-warning / --al-danger / --al-info  狀態
+       --al-focus           鍵盤焦點環
+  */
+  --al-bg: #0d1320;
+  --al-surface: #121a2b;
+  --al-surface-raised: #182234;
+  --al-surface-sunken: #0a1018;
+  --al-border: #24314a;
+  --al-text: #e8edf7;
+  --al-text-secondary: #a6b4d6;
+  --al-text-tertiary: #5d6e94;
+  --al-accent: #3dd9b4;
+  --al-accent-contrast: #06231d;
+  --al-success: #3dd9b4;
+  --al-warning: #ffb454;
+  --al-danger: #ff6b5b;
+  --al-info: #6fa8ff;
+  --al-focus: #7ad7ff;
+}
+
+/* =========================================================================
+ * 主題包（switchable theme packs）
+ * 在任一祖先元素掛上 class 即套用；切換＝換 class。各包只覆寫顏色角色，
+ * 結構 token 不變（節奏一致）。產品可沿用招牌包，也可讓使用者切換。
+ * ========================================================================= */
+
+/* 淺色（ArchLens Web 招牌） */
+.al-theme-light {
+  --al-bg: #f5f4f0;
+  --al-surface: #ffffff;
+  --al-surface-raised: #ffffff;
+  --al-surface-sunken: #ebe9e2;
+  --al-border: #e5e3dc;
+  --al-text: #1a1a1a;
+  --al-text-secondary: #475569;
+  --al-text-tertiary: #94a3b8;
+  --al-accent: #4f46e5;
+  --al-accent-contrast: #ffffff;
+  --al-success: #128a6e;
+  --al-warning: #b4690e;
+  --al-danger: #c0392b;
+  --al-info: #2563eb;
+  --al-focus: #4f46e5;
+}
+
+/* 藍圖（ArchLens Diff 招牌） */
+.al-theme-blueprint {
+  --al-bg: #0f2e42;
+  --al-surface: #143a52;
+  --al-surface-raised: #1a4763;
+  --al-surface-sunken: #0a2233;
+  --al-border: rgba(220, 238, 245, 0.16);
+  --al-text: #dceef5;
+  --al-text-secondary: rgba(220, 238, 245, 0.62);
+  --al-text-tertiary: rgba(220, 238, 245, 0.32);
+  --al-accent: #f2b84b;
+  --al-accent-contrast: #0f2e42;
+  --al-success: #5fd38a;
+  --al-warning: #f2b84b;
+  --al-danger: #ff6b4a;
+  --al-info: #6fb8d6;
+  --al-focus: #f2b84b;
+}
+
+/* 駭客綠（ArchLens Web 的 Hacker 模式 + SuiteNav 品牌色） */
+.al-theme-hacker {
+  --al-bg: #0d0d0f;
+  --al-surface: #141417;
+  --al-surface-raised: #1a1a1f;
+  --al-surface-sunken: #08080a;
+  --al-border: #2a2a30;
+  --al-text: #e6e6ea;
+  --al-text-secondary: #8a8a96;
+  --al-text-tertiary: #5f5f68;
+  --al-accent: #39ff6a;
+  --al-accent-contrast: #0d0d0f;
+  --al-success: #39ff6a;
+  --al-warning: #ffb454;
+  --al-danger: #ff6b5b;
+  --al-info: #6fa8ff;
+  --al-focus: #39ff6a;
+}

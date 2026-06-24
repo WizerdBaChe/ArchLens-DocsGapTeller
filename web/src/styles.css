@@ -1,20 +1,65 @@
+@import "./archlens-tokens.css"; /* @archlens/tokens（vendored）— 須在本檔之前定義 --al-* */
+
+/* ---- @archlens/tokens 採用（Phase 4）----
+   surface/text/border 與語意色（danger/warning/info/success/focus）別名到共用
+   token（--al-*），顏色隨掛在 <html> 的 .al-theme-* 主題包切換。圓角/字體/caution
+   維持本地。系列慣例：預設＝Light、不持久化（見 theme switcher / index.html）。 */
 :root {
-  --ink: #0B1220;
-  --surface: #121A2B;
-  --surface-raised: #182234;
-  --hairline: #24314A;
-  --text-primary: #E8EDF7;
-  --text-secondary: #A6B4D6;
-  --danger: #FF6B5B;
-  --warning: #FFB454;
-  --info: #6FA8FF;
-  --caution: #C792EA;
-  --success: #3DD9B4;
-  --focus: #7AD7FF;
+  --ink: var(--al-bg);
+  --surface: var(--al-surface);
+  --surface-raised: var(--al-surface-raised);
+  --hairline: var(--al-border);
+  --text-primary: var(--al-text);
+  --text-secondary: var(--al-text-secondary);
+  --danger: var(--al-danger);
+  --warning: var(--al-warning);
+  --info: var(--al-info);
+  --caution: #C792EA; /* ambiguous-reference 紫，本地；各主題覆寫 */
+  --success: var(--al-success);
+  --focus: var(--al-focus);
   --radius: 10px;
   --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
   --font-body: "Inter", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+}
+
+/* caution（紫）各主題覆寫，維持白底/黑底可讀 */
+.al-theme-light {
+  --caution: #7c3aed;
+}
+.al-theme-hacker {
+  --caution: #c792ea;
+}
+
+/* Phase 4：主題切換器（segmented control，共用 token 上色） */
+.theme-switch {
+  display: inline-flex;
+  flex-shrink: 0;
+  border: 1px solid var(--al-border);
+  border-radius: var(--al-radius-md);
+  overflow: hidden;
+  background: var(--al-surface);
+}
+.theme-switch__btn {
+  font-family: var(--al-font-mono, var(--font-mono));
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  padding: 6px 10px;
+  border: 0;
+  background: transparent;
+  color: var(--al-text-secondary);
+  cursor: pointer;
+  transition: background var(--al-transition-fast), color var(--al-transition-fast);
+}
+.theme-switch__btn + .theme-switch__btn {
+  border-left: 1px solid var(--al-border);
+}
+.theme-switch__btn:hover {
+  color: var(--al-text);
+}
+.theme-switch__btn.is-active {
+  background: var(--al-accent);
+  color: var(--al-accent-contrast);
 }
 
 * { box-sizing: border-box; }
