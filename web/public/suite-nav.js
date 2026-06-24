@@ -127,6 +127,7 @@ class SuiteNav extends HTMLElement {
         .next:hover .hint { color: #39ff6a; }
         .next .arrow { color: #39ff6a; }
         .next.done { color: #8a8a96; border-style: dashed; }
+        .tab:focus-visible, .next:focus-visible { outline: 2px solid #39ff6a; outline-offset: 2px; border-radius: 6px; }
         @media (max-width: 560px) { .next .hint { display: none; } }
       </style>
       <nav class="bar" aria-label="ArchLens suite navigation">
