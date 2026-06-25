@@ -2,12 +2,12 @@
  * 主題切換器（Phase 4 / @archlens/tokens）— vanilla TS。
  * 切換掛在 <html> 的 .al-theme-* class，共用 token 與本地 caution 色一起換色。
  *
- * 系列慣例：**預設＝Light，且不持久化**——切換只在當次 session 生效，不寫 localStorage；
- * 重新載入即重置回 Light（隱私優先）。index.html 已靜態掛 al-theme-light。
+ * 系列慣例：**預設＝Blueprint，且不持久化**——切換只在當次 session 生效，不寫
+ * localStorage；重新載入即重置回 Blueprint（隱私優先）。index.html 已靜態掛
+ * al-theme-blueprint。Light 已自系列移除（配色難收斂到乾淨舒適）。
  */
 
 const THEMES = [
-  { id: "light", label: "Light" },
   { id: "blueprint", label: "Blueprint" },
   { id: "hacker", label: "Hacker" },
 ] as const;
@@ -16,11 +16,11 @@ type ThemeId = (typeof THEMES)[number]["id"];
 
 const CLASSES = THEMES.map((t) => `al-theme-${t.id}`);
 
-/** 把切換器掛進指定容器（預設 #themeSwitch）。預設選 Light，不讀寫 localStorage。 */
+/** 把切換器掛進指定容器（預設 #themeSwitch）。預設選 Blueprint，不讀寫 localStorage。 */
 export function initThemeSwitch(container: HTMLElement | null): void {
   if (!container) return;
 
-  let current: ThemeId = "light";
+  let current: ThemeId = "blueprint";
   const buttons = new Map<ThemeId, HTMLButtonElement>();
 
   const apply = (next: ThemeId) => {
